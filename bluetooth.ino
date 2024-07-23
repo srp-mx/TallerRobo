@@ -21,11 +21,11 @@ bool automaticoFlag = false;
 
 void automatico()
 {
-  if (distancia < 30)
+  if (distancia < 15)
   {
     llantas(0, 0, 0, 0);
     delay(500);
-    llantas(0, 100, 0, 100);
+    llantas(0, 150, 0, 150);
     delay(300);
     llantas(0, 0, 0, 0);
     delay(500);
@@ -36,7 +36,7 @@ void automatico()
   }
   else
   {
-    llantas(100, 0, 100, 0);
+    llantas(175, 0, 175, 0);
   }
 }
 
@@ -75,7 +75,7 @@ void loop()
         switch (estado)
         {
           case 'a':
-            llantas(100, 0, 100, 0)
+            llantas(255, 0, 255, 0)
             automaticoFlag = false;
             break;
           case 'b':
