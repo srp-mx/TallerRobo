@@ -31,7 +31,7 @@
 #define LeftMotorDirPin2B  24   // Rear Left Motor direction pin 2 to Model-Y M_A IN4 (K3)
 #define speedPinLB 12          // Rear Wheel PWM pin connect Model-Y M_A ENB
 
-//#define HOTSPOT
+#define HOTSPOT
 
 ///
 /// Control de motores
@@ -289,13 +289,12 @@ void init_GPIO() {
 #include "WiFiEsp.h"
 #include "WiFiEspUdp.h"
 
-
 #ifndef HOTSPOT
 char ssid[] = "*********"; // replace ****** with your network SSID (name)
 char pass[] = "*********"; // replace ****** with your network password
 #else
 /// Si el robot será el hotspot
-char ssid[] = "osoyoo_robot"; 
+char ssid[] = "paquito-tlacoyito"; 
 #endif
 
 
