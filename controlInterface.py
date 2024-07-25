@@ -2,11 +2,28 @@ import tkinter as tk
 import tkinter.font as tkFont
 import socket
 
+import subprocess
+
+mapeo_señales = {
+    'stop' : 'X',
+    'left' : 'L',
+    'right' : 'R',
+    'forward' : 'f',
+    'backward' : 'b',
+    'd_left_up' : 'A',
+    'd_right_up' : 'B',
+    'd_right_down' : 'C',
+    'd_left_down' : 'D',
+    'l_turn' : 'l',
+    'r_turn' : 'r'
+}
+
 # Wifi
 UDP_IP = "192.168.4.1" # Indicar IP
 UDP_PORT = 8888 # Indicar puerto
 sock = socket.socket(socket.AF_INET, # Internet
                 socket.SOCK_DGRAM) # UDP
+
 
 class App:
     def __init__(self, root):        
@@ -133,57 +150,85 @@ class App:
 
     def stop_button_command(self):
         print("Stop")
-
+        self.send_message(mapeo_señales['stop'])
 
     def left_button_command(self):
         print("Moving left")
+        self.send_message(mapeo_señales['left'])
 
 
     def right_button_command(self):
         print("Moving right")
+        self.send_message(mapeo_señales['right'])
 
 
     def forward_button_command(self):
         print("Moving forward")
+        self.send_message(mapeo_señales['forward'])
 
 
     def backward_button_command(self):
         print("Moving backward")
+        self.send_message(mapeo_señales['backward'])
 
 
     def d_left_up_button_command(self):
         print("Diagonal left upwards")
+        self.send_message(mapeo_señales['d_left_up'])
 
 
     def d_right_up_button_command(self):
         print("Diagonal right upwards")
+        self.send_message(mapeo_señales['d_right_up'])
 
 
     def d_right_down_button_command(self):
         print("Diagonal right downwards")
+        self.send_message(mapeo_señales['d_right_down'])
 
 
     def d_left_down_button_command(self):
         print("Diagonal left downwards")
+        self.send_message(mapeo_señales['d_left_down'])
 
 
     def l_turn_button_command(self):
         print("Left turn")
+        self.send_message(mapeo_señales['l_turn'])
 
 
     def r_turn_button_command(self):
         print("Right turn")
-        self.send_message('r')
+        self.send_message(mapeo_señales['r_turn'])
 
     def send_message(self, message):
         mes = bytes(message, 'ascii')
         sock.sendto(mes, (UDP_IP, UDP_PORT))
 
 
+
 if __name__ == "__main__":
     print("UDP target IP: %s" % UDP_IP)
     print("UDP target port: %s" % UDP_PORT)
 
+    subprocess.run(["nmcli", "device", "wifi", "list"])
+    subprocess.run(["nmcli", "device", "wifi", "connect", "paquito-tlacoyito"])
+
+
     root = tk.Tk()
     app = App(root)
+
+    root.bind("<KeyPress-w>", lambda _: app.forward_button_command())
+    root.bind("<KeyPress-a>", lambda _: app.left_button_command())
+    root.bind("<KeyPress-s>", lambda _: app.backward_button_command())
+    root.bind("<KeyPress-d>", lambda _: app.right_button_command())
+    root.bind("<KeyPress-i>", lambda _: app.d_left_up_button_command())
+    root.bind("<KeyPress-o>", lambda _: app.d_right_up_button_command())
+    root.bind("<KeyPress-k>", lambda _: app.d_left_down_button_command())
+    root.bind("<KeyPress-l>", lambda _: app.d_right_down_button_command())
+    root.bind("<KeyPress-e>", lambda _: app.l_turn_button_command())
+    root.bind("<KeyPress-q>", lambda _: app.r_turn_button_command())
+    root.bind("<KeyPress-space>", lambda _: app.stop_button_command())
+    root.bind("<KeyRelease>", lambda _: app.stop_button_command())
+
     root.mainloop()

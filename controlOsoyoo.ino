@@ -376,6 +376,19 @@ void loop() {
       case '6':frena_frente_der();break;
       case '7':frena_tras_izq();break;
       case '8':frena_tras_der();break;
+
+      case 'X':stop_Stop();break;
+      case 'r':right_turn(SPEED);break;
+      case 'L':left_shift(SPEED, SPEED, SPEED, SPEED); break;
+      case 'R':right_shift(SPEED, SPEED, SPEED, SPEED); break;
+      case 'f':go_advance(SPEED); break;
+      case 'b':go_back(SPEED); break;
+      case 'A': left_shift(0, SPEED, 0, SPEED); break;
+      case 'B': right_shift(SPEED, 0, SPEED, 0); break;
+      case 'C': right_shift(0, SPEED, 0, SPEED); break;
+      case 'D': left_shift(SPEED, 0, SPEED, 0); break;
+      case 'l':left_turn(SPEED); break;
+
       // Mueve el carrito
       // ...
       default:break;
