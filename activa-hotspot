@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo nmcli device wifi hotspot con-name tlacoyito-wifi ssid tlacoyito-wifi band bg password tlacoyito1
